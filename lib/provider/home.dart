@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_state_management/provider/model.dart';
+import 'package:test_state_management/provider/posts_model.dart';
+import 'package:test_state_management/provider/selected_post_model.dart';
 
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: ChangeNotifierProvider<PostsModel>(
-          builder: (_) => PostsModel(),
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider<PostsModel>(
+              builder: (_) => PostsModel(),
+            ),
+            ChangeNotifierProvider<SelectedPostModel>(
+              builder: (_) => SelectedPostModel(),
+            ),
+          ],
           child: Column(
             children: <Widget>[
               Expanded(
@@ -30,7 +38,7 @@ class Home extends StatelessWidget {
 class SelectedPost extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<PostsModel>(context);
+    final model = Provider.of<SelectedPostModel>(context);
     if (model.getSelectedPost() == null) {
       return Center(
         child: Text("Aucun post sélectionné"),
@@ -83,7 +91,7 @@ class Posts extends StatelessWidget {
           return ListTile(
             title: Text(posts[index].title),
             subtitle: Text(posts[index].body),
-            onTap: () => model.selectPost(posts[index]),
+            onTap: () => Provider.of<SelectedPostModel>(context).selectPost(posts[index]),
           );
         },
       );

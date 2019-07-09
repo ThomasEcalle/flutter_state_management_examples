@@ -4,7 +4,6 @@ import 'package:test_state_management/post.dart';
 
 class PostsModel with ChangeNotifier {
   List<Post> _posts = [];
-  Post _selectedPost;
   bool _loading = false;
 
   PostsModel() {
@@ -14,13 +13,6 @@ class PostsModel with ChangeNotifier {
   bool isLoading() => _loading;
 
   List<Post> getPosts() => _posts;
-
-  Post getSelectedPost() => _selectedPost;
-
-  selectPost(Post post) {
-    _selectedPost = post;
-    notifyListeners();
-  }
 
   Future<void> fetchPosts() async {
     _loading = true;
