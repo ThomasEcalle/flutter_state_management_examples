@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
-import 'bloc/home.dart';
+import 'without_state_management/home.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
   @override
